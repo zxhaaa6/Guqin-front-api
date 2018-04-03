@@ -1,0 +1,26 @@
+{
+    "appenders": [{
+        "type": "dateFile",
+        "filename": "logs/app",
+        "pattern": "-yyyy-MM-dd.log",
+        "alwaysIncludePattern": true,
+        "layout": {
+            "type": "pattern",
+            "pattern": "%r|%p|%c|%m"
+        }
+    }, {
+        "type": "logLevelFilter",
+        "level": "DEBUG",
+        "appender": {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%[[%r] [%p] [%c] %m%]"
+            }
+        }
+    }],
+    "replaceConsole": false,
+    "levels": {
+        "guqin": "INFO"
+    }
+}
