@@ -6,7 +6,7 @@ const RESOLVE = (resolve, reject) => {
     resolve();
 }
 
-class DefaultPageController {
+class UserController {
     constructor() {
         this.router = router;
         this.UserService = new UserService();
@@ -15,10 +15,6 @@ class DefaultPageController {
 
     getRouter() {
         return this.router;
-    }
-
-    getUser(ctx, next) {
-        return ctx.sendJson(log, 'user');
     }
 
     async postLogin(ctx, next) {
@@ -42,4 +38,4 @@ class DefaultPageController {
     }
 }
 
-module.exports = DefaultPageController;
+module.exports = UserController;
