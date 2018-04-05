@@ -14,8 +14,8 @@ class ResourceService {
     async retrieveAllResource(req) {
         try {
             const query = {};
-            const pageSize = req.pageSize ? req.pageSize : 10;
-            const currentPage = req.page ? req.page : 1;
+            const pageSize = req.pageSize ? Number(req.pageSize) : 10;
+            const currentPage = req.page ? Number(req.page) : 1;
             if (req.title) {
                 query.title = new RegExp(req.title, 'i');
             }
