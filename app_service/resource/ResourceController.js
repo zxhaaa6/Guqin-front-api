@@ -18,14 +18,20 @@ class ResourceController {
     }
 
     async getAll(ctx, next) {
-        await new Promise(RESOLVE).then(() => {
-            return this.ResourceService.retrieveAllResource();
+        await new Promise((resolve, reject) => {
+            if (ctx.query) {
+                resolve();
+            } else {
+                reject(Util.genUniError(400, 'params missing'));
+            }
+        }).then(() => {
+            return this.ResourceService.retrieveAllResource(ctx.query);
         }).then(results => {
             return ctx.sendJson(log, results);
         }).catch(err => {
             return ctx.sendError(log, err);
         })
-        
+
     }
 
 }

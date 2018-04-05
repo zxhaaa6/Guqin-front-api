@@ -13,10 +13,11 @@ const BasicMessage = exports.BasicMessage = function(isSuccess, status, message,
     this.status = status;
     this.message = message;
     if (data) {
-        if (data.page) {
-            this.start = data.start;
-            this.limit = data.limit;
-            this.totalCount = data.totalCount;
+        if (data.currentPage) {
+            this.pageCount = data.pageCount;
+            this.currentPage = data.currentPage;
+            this.pageSize = data.pageSize;
+            this.total = data.totalCount;
             this.data = data.dataList;
         } else {
             this.data = data;

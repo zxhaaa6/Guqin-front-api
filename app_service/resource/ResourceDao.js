@@ -25,6 +25,25 @@ class ResourceDao extends AbstractDao {
         }
     }
 
+    async countResource(query) {
+        try {
+            query.active = true;
+            return await this.countDounments(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'countResource');
+        }
+    }
+
+    async findResourcePages(query, sort, start, pageSize) {
+        try {
+            query.active = true;
+            sort = sort ? sort : {dateModified: 'desc'};
+            return await this.findDocumentsPages(query, sort, start, pageSize);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'countResource');
+        }
+    }
+
 }
 
 module.exports = ResourceDao;

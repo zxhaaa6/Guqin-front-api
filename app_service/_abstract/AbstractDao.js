@@ -42,6 +42,22 @@ class AbstractDao {
         }
     }
 
+    async countDounments(query) {
+        try {
+            return await this.collection.count(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'countDounments');
+        }
+    }
+
+    async findDocumentsPages(query, sort, skip, limit) {
+        try {
+            return await this.collection.find(query).sort(sort).skip(skip).limit(limit).lean();
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findDocumentsPages');
+        }
+    }
+
 }
 
 module.exports = AbstractDao;

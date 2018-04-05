@@ -47,7 +47,7 @@ class App {
         // response
         this.app.use(require('./middleware/Response'));
 
-        this.app.use(Jwt({ secret: secret }).unless({ path: [/^\/public/, /^\/user\/login/] }));
+        //this.app.use(Jwt({ secret: secret }).unless({ path: [/^\/public/, /^\/user\/login/] }));
         //Routes
         this.useAllRoutes();
 
