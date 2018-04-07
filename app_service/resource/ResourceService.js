@@ -13,7 +13,7 @@ class ResourceService {
 
     async retrieveAllResource(req) {
         try {
-            const query = {};
+            let query = {};
             const pageSize = req.pageSize ? Number(req.pageSize) : 10;
             const currentPage = req.page ? Number(req.page) : 1;
             if (req.title) {
@@ -22,17 +22,30 @@ class ResourceService {
             if (req.text) {
                 query.text = new RegExp(req.text, 'i');
             }
-            if (req.categoryLa) {
+            if (req.categoryLa && req.categoryLa !== 'null') {
                 query.categoryLaId = req.categoryLa;
             }
-            if (req.tag) {
+            if (req.tag && req.tag !== 'null') {
                 query.tagId = req.tag;
+            }
+            if (req.publishDate) {
+                const start = req.publishDate + ' 00:00:00',
+                    end = req.publishDate + ' 23:59:59';
+                query = {
+                    $and: [
+                        { dateCreated: { $gte: start } },
+                        { dateCreated: { $lte: end } }
+                    ]
+                };
+            }
+            if (req.id) {
+                query = { _id: req.id };
             }
             const totalCount = await this.ResourceDao.countResource(query);
             const pageCount = Math.ceil(totalCount / pageSize);
             const start = (currentPage - 1) * pageSize;
             const sort = { dateModified: -1 };
-            
+
             const results = await this.ResourceDao.findResourcePages(query, sort, start, pageSize);
             for (let i = 0; i < results.length; i++) {
                 const categoryLa = await this.CategoryCacheService.getCategory(results[i].categoryLaId);
