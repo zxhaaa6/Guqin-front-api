@@ -51,7 +51,7 @@ class ResourceService {
                 dataList: results,
             };
         } catch (err) {
-            Util.throwUpErr(log, err, 'getAllResource');
+            Util.throwUpErr(log, err, 'retrieveAllResource');
         }
     }
 
