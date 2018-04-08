@@ -1,14 +1,17 @@
+const moment = require('moment');
 const Util = require('../../util/Util');
 const log = require("log4js").getLogger("ResourceService");
 const ResourceDao = require('./ResourceDao');
 const CategoryCacheService = require('../category/CategoryCacheService');
 const TagCacheService = require('../tag/TagCacheService');
+const UserCacheService = require('../user/UserCacheService');
 
 class ResourceService {
     constructor() {
         this.ResourceDao = new ResourceDao();
         this.CategoryCacheService = new CategoryCacheService();
         this.TagCacheService = new TagCacheService();
+        this.UserCacheService = new UserCacheService();
     }
 
     async retrieveAllResource(req) {
@@ -29,8 +32,8 @@ class ResourceService {
                 query.tagId = req.tag;
             }
             if (req.publishDate) {
-                const start = req.publishDate + ' 00:00:00',
-                    end = req.publishDate + ' 23:59:59';
+                const start = new Date(req.publishDate + ' 00:00:00'),
+                    end = new Date(req.publishDate + ' 23:59:59');
                 query = {
                     $and: [
                         { dateCreated: { $gte: start } },
@@ -49,12 +52,16 @@ class ResourceService {
             const results = await this.ResourceDao.findResourcePages(query, sort, start, pageSize);
             for (let i = 0; i < results.length; i++) {
                 const categoryLa = await this.CategoryCacheService.getCategory(results[i].categoryLaId);
-                results[i].categoryLaName = categoryLa.name;
+                results[i].categoryLaName = categoryLa ? categoryLa.name : '';
                 results[i].tags = [];
                 for (let j of results[i].tagId) {
                     const tag = await this.TagCacheService.getTag(j);
-                    results[i].tags.push(tag.name);
+                    results[i].tags.push(tag ? tag.name : '');
                 }
+                const author = await this.UserCacheService.getUser(results[i].authorId);
+                results[i].authorName = author ? author.name : '';
+                results[i].dateCreated = moment(results[i].dateCreated).format('YYYY-MM-DD HH:mm:ss');
+                results[i].dateModified = moment(results[i].dateModified).format('YYYY-MM-DD HH:mm:ss');
             }
             return {
                 pageSize: pageSize,

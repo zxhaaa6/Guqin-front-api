@@ -19,6 +19,7 @@
     "koa-session": "5.8.1",
     "koa-static": "4.0.2",
     "log4js": "0.6.31",
+    "moment": "^2.22.0",
     "mongoose": "^5.0.10",
     "redis": "^2.8.0",
     "serve-favicon": "^2.4.5",
