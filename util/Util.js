@@ -1,4 +1,9 @@
 const uuid = require('uuid');
+const mongoose = require('mongoose');
+
+exports.checkObjectId = function(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
 
 exports.genUniError = function(code, message) {
     let err = new Error(message);

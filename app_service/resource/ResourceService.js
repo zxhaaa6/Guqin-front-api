@@ -42,7 +42,11 @@ class ResourceService {
                 };
             }
             if (req.id) {
-                query = { _id: req.id };
+                if (Util.checkObjectId(req.id)) {
+                    query = { _id: req.id };
+                } else {
+                    Util.throwErr(log, 400, '_id is wrong');
+                }
             }
             const totalCount = await this.ResourceDao.countResource(query);
             const pageCount = Math.ceil(totalCount / pageSize);
