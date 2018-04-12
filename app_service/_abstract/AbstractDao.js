@@ -13,8 +13,10 @@ class AbstractDao {
 
     async findDocumentById(id) {
         try {
-            id = mongoose.Types.ObjectId(id);
-            return await this.collection.findOne({ _id: id });
+            if (Util.checkObjectId(id)) {
+                id = mongoose.Types.ObjectId(id);
+                return await this.collection.findOne({ _id: id });
+            }
         } catch (err) {
             Util.throwUpErr(log, err, 'findDocumentById');
         }
@@ -56,6 +58,27 @@ class AbstractDao {
         } catch (err) {
             Util.throwUpErr(log, err, 'findDocumentsPages');
         }
+    }
+
+    async updateDocuments(query, setData) {
+        try {
+            return await this.collection.update(query, { $set: setData });
+        } catch (err) {
+            Util.throwUpErr(log, err, 'updateDocument');
+        }
+    }
+
+    async deleteDocumentById(id) {
+        try {
+            if (Util.checkObjectId(id)) {
+                const query = { _id: id };
+                const setData = { active: false };
+                return await this.updateDocuments(query, setData);
+            }
+        } catch (err) {
+            Util.throwUpErr(log, err, 'deleteDocumentById');
+        }
+
     }
 
 }

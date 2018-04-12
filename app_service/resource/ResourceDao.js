@@ -37,10 +37,18 @@ class ResourceDao extends AbstractDao {
     async findResourcePages(query, sort, start, pageSize) {
         try {
             query.active = true;
-            sort = sort ? sort : {dateModified: 'desc'};
+            sort = sort ? sort : { dateModified: 'desc' };
             return await this.findDocumentsPages(query, sort, start, pageSize);
         } catch (err) {
             Util.throwUpErr(log, err, 'countResource');
+        }
+    }
+
+    async deleteResourceById(id) {
+        try {
+            return await this.deleteDocumentById(id);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'deleteResourceById');
         }
     }
 
