@@ -62,6 +62,7 @@ class AbstractDao {
 
     async updateDocuments(query, setData) {
         try {
+            setData.dateModified = new Date();
             return await this.collection.update(query, { $set: setData });
         } catch (err) {
             Util.throwUpErr(log, err, 'updateDocument');

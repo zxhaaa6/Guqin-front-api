@@ -82,7 +82,7 @@ class ResourceService {
     async deleteResourceById(id) {
         try {
             await this.ResourceDao.deleteResourceById(id);
-            return id;
+            return { id };
         } catch (err) {
             Util.throwUpErr(log, err, 'deleteResourceById');
         }
