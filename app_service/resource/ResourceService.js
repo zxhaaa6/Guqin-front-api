@@ -79,6 +79,38 @@ class ResourceService {
         }
     }
 
+    async createResource(data) {
+        try {
+            const saveData = {
+                categoryLaId: data.categoryLa,
+                tagId: data.tags,
+                title: data.title,
+                description: data.description,
+                text: data.text,
+                authorId: data.authorId
+            };
+            return await this.ResourceDao.createResource(saveData);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'createResource');
+        }
+    }
+
+    async updateResourceById(id, data) {
+        try {
+            const setData = {
+                categoryLaId: data.categoryLa,
+                tagId: data.tags,
+                title: data.title,
+                description: data.description,
+                text: data.text
+            };
+            await this.ResourceDao.updateResourceById(id, setData);
+            return { id };
+        } catch (err) {
+            Util.throwUpErr(log, err, 'updateResourceById');
+        }
+    }
+
     async deleteResourceById(id) {
         try {
             await this.ResourceDao.deleteResourceById(id);

@@ -60,12 +60,22 @@ class AbstractDao {
         }
     }
 
+    async createDocument(data) {
+        try {
+            //return await this.collection.create(data);
+            this.instance = new this.collection(data);
+            return await this.instance.save();
+        } catch (err) {
+            Util.throwUpErr(log, err, 'createDocument');
+        }
+    }
+
     async updateDocuments(query, setData) {
         try {
             setData.dateModified = new Date();
             return await this.collection.update(query, { $set: setData });
         } catch (err) {
-            Util.throwUpErr(log, err, 'updateDocument');
+            Util.throwUpErr(log, err, 'updateDocuments');
         }
     }
 

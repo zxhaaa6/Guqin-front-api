@@ -44,6 +44,27 @@ class ResourceDao extends AbstractDao {
         }
     }
 
+    async createResource(doc) {
+        try {
+            return await this.createDocument(doc);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'createResource');
+        }
+    }
+
+    async updateResourceById(id, setData) {
+        try {
+            if (Util.checkObjectId(id)) {
+                const query = {
+                    _id: id
+                };
+                return await this.updateDocuments(query, setData);
+            }
+        } catch (err) {
+            Util.throwUpErr(log, err, 'updateResourceById');
+        }
+    }
+
     async deleteResourceById(id) {
         try {
             return await this.deleteDocumentById(id);

@@ -6,10 +6,11 @@ const ResourceSchema = new Schema({
     categoryLbId: Schema.Types.ObjectId,
     tagId: [Schema.Types.ObjectId],
     title: String,
+    description: String,
     text: String,
     authorId: Schema.Types.ObjectId,
-    viewCount: Number,
-    active: Boolean,
+    viewCount: { type: Number, default: 0 },
+    active: { type: Boolean, default: true },
     dateCreated: { type: Date, default: Date.now },
     dateModified: { type: Date, default: Date.now }
 }, { collection: 'resource' });
