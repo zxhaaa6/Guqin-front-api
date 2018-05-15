@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "author": "Berg",
   "scripts": {
-    "start": "node ./bin/www",
-    "build": ""
+    "start": "npm run build && node ./bin/www",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "@koa/cors": "^2.2.1",
@@ -27,7 +28,15 @@
     "validator": "^9.4.1"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "mocha": "^5.0.4",
-    "nodemon": "^1.17.2"
+    "nodemon": "^1.17.2",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-node-externals": "^1.7.2"
   }
 }
