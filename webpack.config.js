@@ -22,8 +22,8 @@ module.exports = {
   plugins: [
     // new CleanWebpackPlugin(['dist']),
     // new UglifyJSPlugin({
-    //   sourceMap: true
-    // })
+    //   sourceMap: true,
+    // }),
   ],
   module: {
     rules: [

@@ -1,5 +1,5 @@
 import { genFinalMessageStr } from './LogService';
-import * as HttpMessage from './HttpMessage';
+import BasicMessage from './HttpMessage';
 
 function sendJson(ctx) {
   /**
@@ -26,7 +26,7 @@ function sendJson(ctx) {
     if (log) {
       log.info(genFinalMessageStr(ctx, 200, message));
     }
-    return (ctx.body = new HttpMessage.BasicMessage(true, 200, message, data));
+    return (ctx.body = new BasicMessage(true, 200, message, data));
   };
 }
 
@@ -61,30 +61,30 @@ function sendError(ctx) {
         if (log) {
           log.info(genFinalMessageStr(ctx, errorCode, error.message));
         }
-        return (ctx.body = new HttpMessage.BasicMessage(
+        return (ctx.body = new BasicMessage(
           false,
           errorCode,
-          HttpMessage.genMessageTitle(errorCode) + message,
+          BasicMessage.genMessageTitle(errorCode) + message,
         ));
       }
       if (log) {
         log.error(genFinalMessageStr(ctx, 500, error.message));
         log.error(error);
       }
-      return (ctx.body = new HttpMessage.BasicMessage(
+      return (ctx.body = new BasicMessage(
         false,
         500,
-        HttpMessage.genMessageTitle(500),
+        BasicMessage.genMessageTitle(500),
       ));
     }
     if (log) {
       log.error(genFinalMessageStr(ctx, 500, error.message));
       log.error(error);
     }
-    return (ctx.body = new HttpMessage.BasicMessage(
+    return (ctx.body = new BasicMessage(
       false,
       500,
-      HttpMessage.genMessageTitle(500),
+      BasicMessage.genMessageTitle(500),
     ));
   };
 }

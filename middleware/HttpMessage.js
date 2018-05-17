@@ -8,23 +8,29 @@ const messageType = {
   500: 'internal server error',
 };
 
-export const BasicMessage = (isSuccess, status, message, data) => {
-  this.success = isSuccess;
-  this.status = status;
-  this.message = message;
-  if (data) {
-    if (data.currentPage) {
-      this.pageCount = data.pageCount;
-      this.currentPage = data.currentPage;
-      this.pageSize = data.pageSize;
-      this.total = data.totalCount;
-      this.data = data.dataList;
+class BasicMessage {
+  constructor(isSuccess, status, message, data) {
+    this.success = isSuccess;
+    this.status = status;
+    this.message = message;
+    if (data) {
+      if (data.currentPage) {
+        this.pageCount = data.pageCount;
+        this.currentPage = data.currentPage;
+        this.pageSize = data.pageSize;
+        this.total = data.totalCount;
+        this.data = data.dataList;
+      } else {
+        this.data = data;
+      }
     } else {
-      this.data = data;
+      this.data = null;
     }
-  } else {
-    this.data = null;
   }
-};
 
-export const genMessageTitle = errorCode => `${messageType[errorCode]}: `;
+  static genMessageTitle(errorCode) {
+    return `${messageType[errorCode]}: `;
+  }
+}
+
+export default BasicMessage;
