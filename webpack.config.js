@@ -2,14 +2,19 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+require("babel-polyfill");
 
 module.exports = {
   mode: 'development',
-  entry: './app.js',
+  entry: ["babel-polyfill", './bin/main.js'],
   target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.bundle.js'
+    filename: '[name].js'
   },
   resolve: {
     extensions: ['.ts', '.js']

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const fs = require('fs');
 const log4js = require('log4js');
 const config = require('../config/config');
