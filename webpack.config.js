@@ -1,5 +1,5 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 require('babel-polyfill');
@@ -20,7 +20,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    // new CleanWebpackPlugin(['dist']),
     // new UglifyJSPlugin({
     //   sourceMap: true
     // })
