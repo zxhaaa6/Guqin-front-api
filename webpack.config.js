@@ -1,12 +1,12 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-require("babel-polyfill");
+require('babel-polyfill');
 
 module.exports = {
   mode: 'development',
-  entry: ["babel-polyfill", './bin/main.js'],
+  entry: ['babel-polyfill', './bin/main.js'],
   target: 'node',
   node: {
     __dirname: false,
@@ -14,10 +14,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -26,20 +26,22 @@ module.exports = {
     // })
   ],
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['env']
-        }
-      }
-    }]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env'],
+          },
+        },
+      },
+    ],
   },
   stats: {
-    colors: true
+    colors: true,
   },
   externals: [nodeExternals()],
-  devtool: 'source-map'
+  devtool: 'source-map',
 };

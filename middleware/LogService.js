@@ -1,20 +1,22 @@
-const Util = require('../util/Util');
+import { getRequestIp } from '../util/Util';
 
-exports.genFinalMessageStr = function(ctx, code, message) {
-    let timeConsumption, ip, method, messagePrefix = '';
+export const genFinalMessageStr = (ctx, code, message) => {
+  let messagePrefix = '';
 
-    timeConsumption = Date.now() - ctx.hitTime;
-    ip = Util.getRequestIp(ctx);
-    method = ctx.method;
+  const timeConsumption = Date.now() - ctx.hitTime;
+  const ip = getRequestIp(ctx);
+  const { method } = ctx.method;
 
-    if (code < 400) {
-        messagePrefix += 'info:';
-    } else if (code < 500) {
-        messagePrefix += 'warn:';
-    } else {
-        messagePrefix += 'err:';
-    }
-    message = messagePrefix + message;
+  if (code < 400) {
+    messagePrefix += 'info:';
+  } else if (code < 500) {
+    messagePrefix += 'warn:';
+  } else {
+    messagePrefix += 'err:';
+  }
+  message = messagePrefix + message;
 
-    return '[' + ip + '] ' + '[' + timeConsumption + 'ms] ' + '[' + method + '] ' + '[' + ctx.url + '] [' + code + '] ' + message;
+  return `[${ip}] [${timeConsumption}ms] [${method}] [${
+    ctx.url
+  }] [${code}] ${message}`;
 };

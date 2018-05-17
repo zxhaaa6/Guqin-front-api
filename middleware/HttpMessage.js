@@ -1,31 +1,30 @@
 const messageType = {
-    SYS_ERR: 'sys_err',
-    400: 'bad request',
-    401: 'unauthorized',
-    403: 'forbidden',
-    404: 'not found',
-    406: 'not acceptable',
-    500: 'internal server error'
+  SYS_ERR: 'sys_err',
+  400: 'bad request',
+  401: 'unauthorized',
+  403: 'forbidden',
+  404: 'not found',
+  406: 'not acceptable',
+  500: 'internal server error',
 };
 
-const BasicMessage = exports.BasicMessage = function(isSuccess, status, message, data) {
-    this.success = isSuccess;
-    this.status = status;
-    this.message = message;
-    if (data) {
-        if (data.currentPage) {
-            this.pageCount = data.pageCount;
-            this.currentPage = data.currentPage;
-            this.pageSize = data.pageSize;
-            this.total = data.totalCount;
-            this.data = data.dataList;
-        } else {
-            this.data = data;
-        }
+export const BasicMessage = (isSuccess, status, message, data) => {
+  this.success = isSuccess;
+  this.status = status;
+  this.message = message;
+  if (data) {
+    if (data.currentPage) {
+      this.pageCount = data.pageCount;
+      this.currentPage = data.currentPage;
+      this.pageSize = data.pageSize;
+      this.total = data.totalCount;
+      this.data = data.dataList;
     } else {
-        this.data = null;
+      this.data = data;
     }
+  } else {
+    this.data = null;
+  }
 };
-const genMessageTitle = exports.genMessageTitle = function(errorCode) {
-    return messageType[errorCode] + ': ';
-};
+
+export const genMessageTitle = errorCode => `${messageType[errorCode]}: `;

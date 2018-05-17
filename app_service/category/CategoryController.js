@@ -1,33 +1,30 @@
-const router = require('koa-router')();
-const log = require('log4js').getLogger('CategoryController');
-const CategoryService = require('./CategoryService');
-const Util = require('../../util/Util');
-const RESOLVE = (resolve, reject) => {
-    resolve();
-}
+import KoaRouter from 'koa-router';
+import log4js from 'log4js';
+import CategoryService from './CategoryService';
+
+const log = log4js.getLogger('CategoryController');
+
+const RESOLVE = resolve => {
+  resolve();
+};
 
 class CategoryController {
-    constructor() {
-        this.router = router;
-        this.CategoryService = new CategoryService();
-        this.router.get('/all', this.getAll.bind(this));
-    }
+  constructor() {
+    this.router = KoaRouter();
+    this.CategoryService = new CategoryService();
+    this.router.get('/all', this.getAll.bind(this));
+  }
 
-    getRouter() {
-        return this.router;
-    }
+  getRouter() {
+    return this.router;
+  }
 
-    async getAll(ctx, next) {
-        await new Promise(RESOLVE).then(() => {
-            return this.CategoryService.retrieveAllCategory(ctx.query);
-        }).then(results => {
-            return ctx.sendJson(log, results);
-        }).catch(err => {
-            return ctx.sendError(log, err);
-        })
-
-    }
-
+  async getAll(ctx) {
+    await new Promise(RESOLVE)
+      .then(() => this.CategoryService.retrieveAllCategory())
+      .then(results => ctx.sendJson(log, results))
+      .catch(err => ctx.sendError(log, err));
+  }
 }
 
-module.exports = CategoryController;
+export default CategoryController;

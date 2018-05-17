@@ -1,20 +1,21 @@
-const Util = require('../../util/Util');
-const log = require("log4js").getLogger("CategoryService");
-const CategoryDao = require('./CategoryDao');
+import log4js from 'log4js';
+import * as Util from '../../util/Util';
+import CategoryDao from './CategoryDao';
+
+const log = log4js.getLogger('CategoryService');
 
 class CategoryService {
-    constructor() {
-        this.CategoryDao = new CategoryDao();
-    }
+  constructor() {
+    this.CategoryDao = new CategoryDao();
+  }
 
-    async retrieveAllCategory(req) {
-        try {
-            return await this.CategoryDao.findAllCategorys();
-        } catch (err) {
-            Util.throwUpErr(log, err, 'retrieveAllCategory');
-        }
+  async retrieveAllCategory() {
+    try {
+      return await this.CategoryDao.findAllCategorys();
+    } catch (err) {
+      Util.throwUpErr(log, err, 'retrieveAllCategory');
     }
-
+  }
 }
 
-module.exports = CategoryService;
+export default CategoryService;

@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
-const CategorySchema = new Schema({
+const CategorySchema = new Schema(
+  {
     parentId: Schema.Types.ObjectId,
     name: String,
     nameEn: String,
@@ -10,13 +12,15 @@ const CategorySchema = new Schema({
     viewCount: Number,
     active: Boolean,
     dateCreated: { type: Date, default: Date.now },
-    dateModified: { type: Date, default: Date.now }
-}, { collection: 'category' });
+    dateModified: { type: Date, default: Date.now },
+  },
+  { collection: 'category' },
+);
 
 CategorySchema.index({
-    parentId: 1
+  parentId: 1,
 });
 
 const Category = mongoose.model('Category', CategorySchema);
 
-module.exports = Category;
+export default Category;

@@ -11,10 +11,22 @@
   "rules": {
     "no-tabs": "off",
     "arrow-parens": "off",
-    "import/newline-after-import": "off",
     "no-useless-constructor": "off",
     "class-methods-use-this": "off",
     "max-len": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "function-paren-newline": "off",
+    "one-var": "off",
+    "no-param-reassign": "off",
+    "prefer-destructuring": "off",
+    "radix": "off",
+    "no-mixed-operators": "off",
+    "import/prefer-default-export": "off",
+    "no-return-assign": "off",
+    "no-underscore-dangle": "off",
+    "new-cap": "off",
+    "no-await-in-loop": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off"
   }
 }
