@@ -1,6 +1,5 @@
 import fs from 'fs';
 import log4js from 'log4js';
-import App from '../app';
 import config from '../config/config';
 import { connectRedisDbServer } from '../system/RedisManager';
 import { connectMongodbServer } from '../system/MongodbManager';
@@ -23,7 +22,8 @@ const log = log4js.getLogger('www');
 async function startUp() {
   await connectRedisDbServer();
   await connectMongodbServer();
-  // setup app based on Koa
+  // setup app based on Koa, must required after redis and mongodb have connected.
+  const App = require('../app');
   const app = new App();
   app.startUpHttpServer();
 }

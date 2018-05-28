@@ -1,8 +1,7 @@
 import log4js from 'log4js';
 import * as Util from '../../util/Util';
 import AbstractDao from '../_abstract/AbstractDao';
-
-const UserModel = require('../../app_model/User');
+import UserModel from '../../app_model/User';
 
 const log = log4js.getLogger('UserDao');
 

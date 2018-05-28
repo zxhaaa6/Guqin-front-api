@@ -139,4 +139,4 @@ class App {
   }
 }
 
-export default App;
+module.exports = App;
