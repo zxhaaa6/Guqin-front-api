@@ -1,23 +1,28 @@
-import fs from 'fs';
-import log4js from 'log4js';
+import { configure, getLogger } from 'log4js';
 import config from '../config/config';
 import { connectRedisDbServer } from '../system/RedisManager';
 import { connectMongodbServer } from '../system/MongodbManager';
 
 // ===================== log module =========================
-const hasLogDir = fs.existsSync(`${__dirname}/../logs`);
-if (!hasLogDir) {
-  fs.mkdirSync(`${__dirname}/../logs`);
-}
-
 if (config.log4js.logging) {
-  log4js.configure(`${__dirname}/../config/log4js.json`, {
-    cwd: `${__dirname}/../`,
+  configure(`${__dirname}/../config/log4js.json`);
+} else {
+  configure({
+    appenders: {
+      console: {
+        type: 'console',
+        layout: {
+          type: 'pattern',
+          pattern: '%[[%d{yyyy-MM-dd hh:mm:ss}] [%p] [%c] %m%]',
+        },
+      },
+    },
+    categories: { default: { appenders: ['console'], level: 'info' } },
   });
 }
 // ==================== log module =========================
 
-const log = log4js.getLogger('www');
+const log = getLogger('www');
 
 async function startUp() {
   await connectRedisDbServer();

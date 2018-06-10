@@ -1,29 +1,26 @@
 {
-  "appenders": [
-    {
+  "appenders": {
+    "api": {
       "type": "dateFile",
       "filename": "logs/app",
       "pattern": "-yyyy-MM-dd.log",
       "alwaysIncludePattern": true,
       "layout": {
         "type": "pattern",
-        "pattern": "%r|%p|%c|%m"
-      }
+        "pattern": "%d{yyyy-MM-dd hh:mm:ss}|%p|%c|%m"
+      },
+      "category": "default"
     },
-    {
-      "type": "logLevelFilter",
-      "level": "DEBUG",
-      "appender": {
-        "type": "console",
-        "layout": {
-          "type": "pattern",
-          "pattern": "%[[%r] [%p] [%c] %m%]"
-        }
+    "console": {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%[[%d{yyyy-MM-dd hh:mm:ss}] [%p] [%c] %m%]"
       }
     }
-  ],
-  "replaceConsole": false,
-  "levels": {
-    "guqin": "INFO"
-  }
+  },
+  "categories": {
+    "default": { "appenders": ["api", "console"], "level": "INFO" }
+  },
+  "replaceConsole": true
 }
