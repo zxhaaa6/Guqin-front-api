@@ -5,19 +5,10 @@ export default {
     logging: false,
   },
   mongodb: {
-    host: '127.0.0.1',
-    port: '27017',
-    db: 'guqin',
-    options: {
-      autoIndex: false,
-      reconnectTries: 20,
-      reconnectInterval: 2000, // Reconnect every 500ms
-      poolSize: 10, // By default, poolSize is 5
-    },
-  },
-  redis: {
-    host: '127.0.0.1',
-    port: '6379',
+    autoIndex: false,
+    reconnectTries: 20,
+    reconnectInterval: 2000, // Reconnect every 500ms
+    poolSize: 10, // By default, poolSize is 5
   },
   wechat: {
     // login by wechat

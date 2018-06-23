@@ -4,6 +4,8 @@ import config from '../config/config';
 import { connectRedisDbServer } from '../system/RedisManager';
 import { connectMongodbServer } from '../system/MongodbManager';
 
+require('dotenv').config();
+
 // ===================== log module =========================
 const hasLogDir = fs.existsSync(`${__dirname}/../logs`);
 if (!hasLogDir) {

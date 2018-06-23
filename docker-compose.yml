@@ -1,0 +1,56 @@
+version: '3.1'
+services:
+  guqin-front-api:
+    image: guqin-front-api
+    build: .
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - 3300:3300
+    depends_on:
+      - redis
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - guqin
+    volumes:
+      - ./:/app
+  redis: 
+    image: redis:alpine
+    container_name: "redis"
+    ports:
+      - 6379:6379
+    networks:
+      - guqin
+    restart: unless-stopped
+    volumes:
+      - guqin-redis:/data/redis
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASS}
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    volumes:
+      - "${PWD}/docker/mongo_entrypoint/:/docker-entrypoint-initdb.d/"
+      - guqin-db:/data/db
+    networks:
+      - guqin
+    healthcheck:
+      test: "echo 'db.stats().ok' | mongo localhost:27017/${MONGODB_DB} --quiet"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+volumes:
+  guqin-db:
+    external: true
+  guqin-redis:
+    external: true
+networks: 
+  guqin:
+    external: false

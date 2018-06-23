@@ -6,13 +6,15 @@
     "build": "webpack",
     "lint": "eslint '{app_model,app_service,middleware,system,util}/**/*.js'",
     "precommit": "npm run prettify && npm run lint",
-    "prettify": "prettier --write --single-quote --trailing-comma all --loglevel silent '{app_model,app_service,middleware,system,util}/**/*.js'",
+    "prettify":
+      "prettier --write --single-quote --trailing-comma all --loglevel silent '{app_model,app_service,middleware,system,util}/**/*.js'",
     "start": "npm run build && node ./dist/main",
     "watch": "webpack --watch"
   },
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "bluebird": "^3.5.1",
+    "dotenv": "^6.0.0",
     "formidable": "^1.2.0",
     "hoek": "^5.0.3",
     "jsonwebtoken": "8.2.0",

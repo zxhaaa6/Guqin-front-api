@@ -1,10 +1,8 @@
 import log4js from 'log4js';
 import redis from 'redis';
 import Promise from 'bluebird';
-import config from '../config/config';
 
 const log = log4js.getLogger('RedisManager');
-const dbConfig = config.redis;
 
 let redisClient;
 
@@ -13,7 +11,10 @@ Promise.promisifyAll(redis.Multi.prototype);
 
 export const connectRedisDbServer = () =>
   new Promise((resolve, reject) => {
-    const client = redis.createClient(dbConfig.port, dbConfig.host);
+    const client = redis.createClient(
+      process.env.REDIS_PORT,
+      process.env.REDIS_HOST,
+    );
     client.on('ready', () => {
       redisClient = client;
       log.info('[Redis]DB connection has been established successfully.');
