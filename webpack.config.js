@@ -9,8 +9,8 @@ module.exports = {
   entry: ['babel-polyfill', './bin/main.js'],
   target: 'node',
   node: {
-    __dirname: false,
-    __filename: false,
+    __dirname: true,
+    __filename: true,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
